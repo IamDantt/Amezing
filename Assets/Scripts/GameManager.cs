@@ -36,10 +36,12 @@ public class GameManager : MonoBehaviour
         //Si presionamos la tecla p cambiamos estado de menu a estado de juego
         if (Input.GetButtonDown ("p"))
         {
+            //Inicia el juego
             currentGameState = GameState.inTheGame;
         }
         if (Input.GetButtonDown("Escape"))
         {
+            //Pausa el juego
             currentGameState = GameState.menu;
         }
     }
