@@ -5,19 +5,37 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float horizontal;
-    private float speed = 8f;
-    private float jumpingPower = 8f;
+    [Header("Move Player")]
+   [SerializeField] private float speed;
+   [SerializeField] private float jumpingPower;
     private bool isFacingRight = true;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundChek;
     [SerializeField] private LayerMask groundLayer;
 
-    
+    [Header("Animation")]
+    public Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (horizontal != 0)
+        {
+            anim.SetBool("isRun", true);
+        }
+        else
+        {
+            anim.SetBool("isRun", false);
+        }
+
         if (Input.GetButtonDown("Jump")&& IsGounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
@@ -26,8 +44,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-
-
         Flip();
     }
 
